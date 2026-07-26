@@ -18,12 +18,6 @@
       <div class="card">
         <h2>Subir solicitud</h2>
         <form id="person-form">
-          <label>Nombre de la persona</label>
-          <input id="name" required placeholder="Ej. Ana Pérez" />
-
-          <label>Colonia o referencia</label>
-          <input id="colonia" required placeholder="Ej. Loma Linda" />
-
           <label>Tipo de ayuda</label>
           <select id="type">
             <option value="Doctor">Doctor</option>
@@ -31,14 +25,59 @@
             <option value="Medicina">Medicina</option>
           </select>
 
-          <label>Detalle</label>
-          <textarea id="detail" rows="4" required placeholder="Ej. No se puede movilizar y necesita atención médica"></textarea>
+          <div id="doctor-fields" class="dynamic-fields">
+            <label>Nombre de la persona</label>
+            <input id="name" placeholder="Ej. Ana Pérez" />
 
-          <label>Foto de la calle o la persona</label>
-          <input type="file" id="photo" accept="image/*" />
+            <label>Colonia</label>
+            <input id="colonia" placeholder="Ej. Loma Linda" />
 
-          <label>Ubicación o calle</label>
-          <input id="street" placeholder="Ej. Calle 5 entre 10 y 12" />
+            <label>Referencia</label>
+            <input id="reference" placeholder="Ej. Casa azul al final de la calle" />
+
+            <label>Foto de la persona</label>
+            <input type="file" id="photo" accept="image/*" />
+
+            <label>Detalles</label>
+            <textarea id="detail" rows="4" placeholder="Ej. No se puede movilizar y necesita atención médica"></textarea>
+
+            <label>Ubicación o calle</label>
+            <input id="street" placeholder="Ej. Calle 5 entre 10 y 12" />
+
+            <label>Descripción de la calle más accesible</label>
+            <textarea id="street-description" rows="2" placeholder="Ej. Hay una entrada amplia y se puede llegar por el lado izquierdo"></textarea>
+          </div>
+
+          <div id="traslado-fields" class="dynamic-fields" style="display: none;">
+            <label>Nombre de la persona</label>
+            <input id="traslado-name" placeholder="Ej. Luis Ramírez" />
+
+            <label>Dirección</label>
+            <input id="address" placeholder="Ej. Av. Central #12" />
+
+            <label>Foto de la persona</label>
+            <input type="file" id="traslado-photo" accept="image/*" />
+
+            <label>Detalles</label>
+            <textarea id="traslado-detail" rows="4" placeholder="Ej. Necesita transporte para acudir a una cita"></textarea>
+          </div>
+
+          <div id="medicina-fields" class="dynamic-fields" style="display: none;">
+            <label>Nombre de la persona</label>
+            <input id="medicina-name" placeholder="Ej. María Torres" />
+
+            <label>Colonia</label>
+            <input id="medicina-colonia" placeholder="Ej. San Miguel" />
+
+            <label>Calle</label>
+            <input id="medicina-street" placeholder="Ej. Calle 8" />
+
+            <label>Descripción de la medicina</label>
+            <textarea id="medicina-description" rows="4" placeholder="Ej. Paquete de pastillas para presión"></textarea>
+
+            <label>Foto de INE de quien entregará la medicina</label>
+            <input type="file" id="medicina-photo" accept="image/*" />
+          </div>
 
           <button type="submit">Guardar solicitud</button>
         </form>
