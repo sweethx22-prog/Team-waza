@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <title>Ayuda Salud Comunitaria</title>
   <style>
     :root {
@@ -185,6 +187,10 @@
       localStorage.setItem('health-requests', JSON.stringify(requests));
     }
 
+    function generateCode() {
+      return `MED-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+    }
+
     function renderRequests() {
       if (requests.length === 0) {
         requestList.innerHTML = '<p class="small">Aún no hay solicitudes registradas.</p>';
@@ -197,21 +203,22 @@
           <span class="small">${item.type}</span><br>
           ${item.detail}<br>
           <div class="status ${item.status === 'Entregado' ? 'delivered' : 'pending'}">${item.status}</div>
-          ${item.code ? `<div class="code-box">Código: ${item.code}</div>` : ''}
+          ${item.code ? `<div class="code-box">Código de entrega: ${item.code}</div>` : ''}
         </div>
       `).join('');
     }
 
     requestForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const selectedType = document.getElementById('type').value;
       const newRequest = {
         id: Date.now(),
         name: document.getElementById('name').value.trim(),
         colonia: document.getElementById('colonia').value.trim(),
-        type: document.getElementById('type').value,
+        type: selectedType,
         detail: document.getElementById('detail').value.trim(),
         status: 'Pendiente',
-        code: document.getElementById('type').value === 'Medicamento' ? `MED-${Math.random().toString(36).slice(2, 7).toUpperCase()}` : ''
+        code: selectedType === 'Medicamento' ? generateCode() : ''
       };
 
       requests.unshift(newRequest);
