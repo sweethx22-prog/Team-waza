@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prototipo Encargados</title>
+  <style>
+    :root {
+      --bg: #f6fbf8;
+      --card: #ffffff;
+      --accent: #1f6f4f;
+      --accent2: #2f8f68;
+      --text: #16362a;
+      --muted: #5c766f;
+      --warning: #f0c24b;
+      --success: #2e8b57;
+      --danger: #c94b4b;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .card { background: var(--card); border-radius: 16px; padding: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); margin-bottom: 16px; }
+    h1, h2 { margin-top: 0; }
+    .grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+    .list { display: grid; gap: 10px; }
+    .item { border: 1px solid #e2ece6; border-radius: 12px; padding: 12px; background: #fcfefd; }
+    .chip { display: inline-block; padding: 5px 9px; border-radius: 999px; font-size: 0.85rem; font-weight: bold; margin-top: 6px; }
+    .chip.doctor { background: #eaf7ef; color: var(--accent); }
+    .chip.traslado { background: #fff4d9; color: #7a5600; }
+    .chip.medicina { background: #f2ebff; color: #5b3ec2; }
+    .chip.done { background: #e8f7eb; color: var(--success); }
+    .chip.pending { background: #fdebd2; color: #925b00; }
+    button { padding: 10px 12px; border-radius: 10px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: bold; }
+    button:hover { background: var(--accent2); }
+    .secondary { background: var(--warning); color: #4b3200; }
+    .secondary:hover { background: #d8ac32; }
+    .danger { background: var(--danger); }
+    .danger:hover { background: #a53b3b; }
+    .small { font-size: 0.9rem; color: var(--muted); }
+    .code-box { background: #f2f8f5; border: 1px dashed var(--accent); border-radius: 10px; padding: 10px; margin-top: 8px; font-weight: bold; color: var(--accent); }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Vista para encargados</h1>
+      <p class="small">Aquí se revisan las solicitudes, se aceptan, se marcan como visitadas o trasladadas y se generan códigos para medicamentos.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Solicitudes pendientes</h2>
+        <div id="pending-list" class="list"></div>
+      </div>
+
+      <div class="card">
+        <h2>Gestión de medicina</h2>
+        <div id="medicine-list" class="list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let requests = JSON.parse(localStorage.getItem('person-requests') || '[]');
+
+    function saveRequests() {
+      localStorage.setItem('person-requests', JSON.stringify(requests));
+    }
+
+    function getTypeClass(type) {
+      if (type === 'Doctor') return 'doctor';
+      if (type === 'Traslado') return 'traslado';
+      return 'medicina';
+    }
+
+    function generateCode() {
+      return `MED-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+    }
+
+    function renderLists() {
+      const pending = requests.filter((item) => item.status !== 'Atendida' && item.status !== 'Entregado');
+      const medicine = requests.filter((item) => item.type === 'Medicina');
+
+      document.getElementById('pending-list').innerHTML = pending.length === 0
+        ? '<p class="small">No hay solicitudes pendientes.</p>'
+        : pending.map((item) => `
+            <div class="item">
+              <strong>${item.name}</strong> · ${item.colonia}<br>
+              <span class="chip ${getTypeClass(item.type)}">${item.type}</span>
+              <div class="small">${item.detail}</div>
+              <div class="small">📍 ${item.street || 'Sin calle registrada'}</div>
+              <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+                <button onclick="acceptRequest('${item.id}')">Aceptar</button>
+                <button class="secondary" onclick="markVisited('${item.id}')">Marcar visitada/trasladada</button>
+                ${item.type === 'Medicina' ? `<button class="secondary" onclick="generateMedicineCode('${item.id}')">Generar código</button>` : ''}
+              </div>
+            </div>
+          `).join('');
+
+      document.getElementById('medicine-list').innerHTML = medicine.length === 0
+        ? '<p class="small">No hay solicitudes de medicina.</p>'
+        : medicine.map((item) => `
+            <div class="item">
+              <strong>${item.name}</strong><br>
+              <div class="small">${item.detail}</div>
+              <span class="chip ${item.status === 'Entregado' ? 'done' : 'pending'}">${item.status || 'Pendiente'}</span>
+              ${item.code ? `<div class="code-box">Código: ${item.code}</div>` : ''}
+              <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+                <button onclick="markDelivered('${item.id}')">Marcar entregado</button>
+              </div>
+            </div>
+          `).join('');
+    }
+
+    window.acceptRequest = function(id) {
+      const item = requests.find((entry) => String(entry.id) === String(id));
+      if (!item) return;
+      item.status = 'Aceptada';
+      saveRequests();
+      renderLists();
+      alert('Solicitud aceptada');
+    };
+
+    window.markVisited = function(id) {
+      const item = requests.find((entry) => String(entry.id) === String(id));
+      if (!item) return;
+      item.status = 'Atendida';
+      saveRequests();
+      renderLists();
+      alert('Marcado como visitada o trasladada');
+    };
+
+    window.generateMedicineCode = function(id) {
+      const item = requests.find((entry) => String(entry.id) === String(id));
+      if (!item) return;
+      item.code = generateCode();
+      item.status = 'Pendiente entrega';
+      saveRequests();
+      renderLists();
+      alert(`Código generado: ${item.code}`);
+    };
+
+    window.markDelivered = function(id) {
+      const item = requests.find((entry) => String(entry.id) === String(id));
+      if (!item) return;
+      item.status = 'Entregado';
+      saveRequests();
+      renderLists();
+      alert('Medicamento marcado como entregado');
+    };
+
+    renderLists();
+  </script>
+</body>
+</html>
