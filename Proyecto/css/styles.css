@@ -1,0 +1,50 @@
+:root {
+  --bg: #f5fbf8;
+  --card: #ffffff;
+  --accent: #1f6f4f;
+  --accent2: #2f8f68;
+  --text: #16362a;
+  --muted: #5c766f;
+  --warning: #f0c24b;
+  --danger: #c94b4b;
+  --success: #2e8b57;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+.card { background: var(--card); border-radius: 16px; padding: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); margin-bottom: 16px; }
+.hero { text-align: center; }
+h1, h2 { margin-top: 0; }
+.grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.list { display: grid; gap: 10px; }
+.item { border: 1px solid #e3eee7; border-radius: 12px; padding: 12px; background: #fcfefd; }
+label { display: block; font-weight: bold; margin: 10px 0 6px; }
+input, select, textarea, button, file { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid #d5e7dc; font-size: 1rem; }
+button { background: var(--accent); color: white; border: none; cursor: pointer; font-weight: bold; }
+button:hover { background: var(--accent2); }
+.small { font-size: 0.9rem; color: var(--muted); }
+.link { color: var(--accent); text-decoration: none; font-weight: bold; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.btn { display: inline-block; padding: 10px 14px; border-radius: 10px; background: var(--accent); color: white; text-decoration: none; margin: 6px; }
+.btn.secondary { background: var(--warning); color: #4b3200; }
+.chip { display: inline-block; padding: 5px 9px; border-radius: 999px; font-size: 0.85rem; font-weight: bold; margin-top: 6px; }
+.chip.doctor { background: #eaf7ef; color: var(--accent); }
+.chip.traslado { background: #fff4d9; color: #7a5600; }
+.chip.medicina { background: #f2ebff; color: #5b3ec2; }
+.chip.done { background: #e8f7eb; color: var(--success); }
+.chip.pending { background: #fdebd2; color: #925b00; }
+.photo-preview { margin-top: 8px; max-width: 100%; border-radius: 12px; border: 1px solid #dcefe5; }
+.map-box { background: #f7fcfa; border: 1px dashed var(--accent); border-radius: 10px; padding: 10px; margin-top: 8px; color: var(--muted); }
+.secondary-btn { background: var(--warning); color: #4b3200; }
+.secondary-btn:hover { background: #d8ac32; }
+.danger-btn { background: var(--danger); }
+.danger-btn:hover { background: #a53b3b; }
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }

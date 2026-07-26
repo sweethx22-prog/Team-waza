@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vista de personas</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Registro de personas que necesitan ayuda</h1>
+      <p class="small">Aquí se registran solicitudes de doctor, traslado o medicina.</p>
+      <a class="link" href="index.html">← volver al inicio</a>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Subir solicitud</h2>
+        <form id="person-form">
+          <label>Nombre de la persona</label>
+          <input id="name" required placeholder="Ej. Ana Pérez" />
+
+          <label>Colonia o referencia</label>
+          <input id="colonia" required placeholder="Ej. Loma Linda" />
+
+          <label>Tipo de ayuda</label>
+          <select id="type">
+            <option value="Doctor">Doctor</option>
+            <option value="Traslado">Traslado</option>
+            <option value="Medicina">Medicina</option>
+          </select>
+
+          <label>Detalle</label>
+          <textarea id="detail" rows="4" required placeholder="Ej. No se puede movilizar y necesita atención médica"></textarea>
+
+          <label>Foto de la calle o la persona</label>
+          <input type="file" id="photo" accept="image/*" />
+
+          <label>Ubicación o calle</label>
+          <input id="street" placeholder="Ej. Calle 5 entre 10 y 12" />
+
+          <button type="submit">Guardar solicitud</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Seguimiento de medicina</h2>
+        <div id="medicine-panel"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Solicitudes registradas</h2>
+      <div id="request-list" class="list"></div>
+    </div>
+  </div>
+
+  <script src="js/personas.js"></script>
+</body>
+</html>
