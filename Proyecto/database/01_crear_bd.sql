@@ -1,11 +1,11 @@
 USE master;
 GO
 
-IF DB_ID(N'TeamWaza') IS NULL
+IF DB_ID(N'AccesoSalud') IS NULL
 BEGIN
-    CREATE DATABASE TeamWaza;
+    CREATE DATABASE AccesoSalud;
 END
 GO
 
-USE TeamWaza;
+USE AccesoSalud;
 GO

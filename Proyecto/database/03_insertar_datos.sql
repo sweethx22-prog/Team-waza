@@ -1,4 +1,4 @@
-USE TeamWaza;
+USE AccesoSalud;
 GO
 
 INSERT INTO dbo.Solicitudes (Nombre, Colonia, TipoAyuda, Detalle, Calle, Estado)

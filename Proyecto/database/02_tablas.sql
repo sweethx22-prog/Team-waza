@@ -1,4 +1,4 @@
-USE TeamWaza;
+USE AccesoSalud;
 GO
 
 IF OBJECT_ID(N'dbo.Solicitudes', N'U') IS NULL
