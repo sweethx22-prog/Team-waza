@@ -43,7 +43,13 @@ button { background: var(--accent); color: white; border: none; cursor: pointer;
 button:hover { background: var(--accent2); }
 .small { font-size: 0.9rem; color: var(--muted); }
 .link { color: var(--accent); text-decoration: none; font-weight: bold; }
-.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
 .btn { display: inline-block; padding: 10px 14px; border-radius: 10px; background: var(--accent); color: white; text-decoration: none; margin: 6px; }
 .btn.secondary { background: var(--warning); color: #4b3200; }
 .chip { display: inline-block; padding: 5px 9px; border-radius: 999px; font-size: 0.85rem; font-weight: bold; margin-top: 6px; }
@@ -58,4 +64,7 @@ button:hover { background: var(--accent2); }
 .secondary-btn:hover { background: #d8ac32; }
 .danger-btn { background: var(--danger); }
 .danger-btn:hover { background: #a53b3b; }
+#login-card { max-width: 420px; }
+#login-card input { margin-bottom: 8px; }
+#login-card button { margin-top: 8px; }
 @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }

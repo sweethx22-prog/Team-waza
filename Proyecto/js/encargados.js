@@ -1,5 +1,12 @@
 let requests = JSON.parse(localStorage.getItem('person-requests') || '[]');
 
+const loginBtn = document.getElementById('login-btn');
+const loginCard = document.getElementById('login-card');
+const contentArea = document.getElementById('content-area');
+const loginError = document.getElementById('login-error');
+const userInput = document.getElementById('user');
+const passwordInput = document.getElementById('password');
+
 function saveRequests() {
   localStorage.setItem('person-requests', JSON.stringify(requests));
 }
@@ -85,5 +92,19 @@ window.markDelivered = function(id) {
   renderLists();
   alert('Medicamento marcado como entregado');
 };
+
+loginBtn.addEventListener('click', () => {
+  const user = userInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  if (user === 'admin' && password === '1234') {
+    loginCard.style.display = 'none';
+    contentArea.style.display = 'block';
+    loginError.style.display = 'none';
+    renderLists();
+  } else {
+    loginError.style.display = 'block';
+  }
+});
 
 renderLists();

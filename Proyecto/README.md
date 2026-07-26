@@ -15,13 +15,7 @@ Este directorio está organizado para trabajar con una base de datos SQL, en est
 - database/03_insertar_datos.sql: inserta datos de ejemplo
 - assets/: imágenes y archivos estáticos
 
-## Cómo usarlo
-
-1. Abre SQL Server Management Studio 19.
-2. Ejecuta 01_crear_bd.sql.
-3. Luego ejecuta 02_tablas.sql.
-4. Si quieres, ejecuta 03_insertar_datos.sql para ver ejemplos.
 
 ## Nota
 
-La idea es que el proyecto frontend quede separado y luego pueda conectarse a esta base de datos SQL.
+La idea es que el proyecto frontend quede separado y luego pueda conectarse a una base de datos SQL.
