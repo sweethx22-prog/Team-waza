@@ -62,6 +62,8 @@ function renderRequests() {
 }
 
 function renderMedicinePanel() {
+  if (!medicinePanel) return;
+
   const medicineRequests = requests.filter((item) => item.type === 'Medicina');
   if (medicineRequests.length === 0) {
     medicinePanel.innerHTML = '<p class="small">No hay solicitudes de medicina todavía.</p>';
