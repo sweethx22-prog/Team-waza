@@ -36,7 +36,7 @@ body {
   border-radius: 12px;
 }
 h1, h2 { margin-top: 0; }
-.grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.grid .card:has(#person-form) {grid-column: 1 / -1;}
 .list { display: grid; gap: 10px; }
 .item { border: 1px solid #e3eee7; border-radius: 12px; padding: 12px; background: #fcfefd; }
 label { display: block; font-weight: bold; margin: 10px 0 6px; }
